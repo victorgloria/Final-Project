@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class character : MonoBehaviour
 {
@@ -33,5 +34,8 @@ public class character : MonoBehaviour
         }
         rb.MovePosition(transform.position + new Vector3(Input.GetAxisRaw("Horizontal"),Input.GetAxisRaw("Vertical")) * Time.fixedDeltaTime * Speed);
 
+        if(Keyboard.current.aKey.wasPressedThisFrame){
+            transform.Rotate(0, 180, 0);
+        }
     }
 }
