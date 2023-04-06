@@ -4,15 +4,28 @@ using UnityEngine;
 
 public class animationScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public Animator animator; 
+    public string currentState = "Idle";
+
+    // IEnumerator Start(){
+    //     ChangeAnimationState("Idle");
+    //     yield return new WaitForSeconds(3);
+    //     ChangeAnimationState("Walking");
+    // }
+    void Start(){
+        ChangeAnimationState("Idle");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    public void ChangeAnimationState(string newState, float speed = 1){
         
+        animator.speed = speed;
+
+        if(currentState == newState){ //already playing desired animation
+            return;
+        }
+        
+        currentState = newState;
+        animator.Play(newState);
     }
+
 }

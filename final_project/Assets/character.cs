@@ -1,41 +1,69 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class character : MonoBehaviour
 {
     Rigidbody2D rb;
+    SpriteRenderer spriteRenderer;
+    public float speed = 5f;
+    public animationScript asc;
 
-    private Animator anim;
+    public bool platformingCreature = false; //when true, change behavior to work like 2D platformer char
 
-    public float Speed = 5f;
-    // Start is called before the first frame update
-    void Start()
-    {
-        anim = GetComponent<Animator>();
+    public float jumpVel = 5;
+    void Start(){
+        spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+
+    public void Move(Vector3 offset){
+        if(offset != Vector3.zero){
+            offset.Normalize();
+            //offset *= Time.fixedDeltaTime;
+            //rb.MovePosition(transform.position + ((offset)*speed));
+            Vector3 vel = offset *= speed;
+            if(platformingCreature){
+                rb.velocity = new Vector2(vel.x,rb.velocity.y);
+            }else{
+                rb.velocity = vel;
+            }
+            
+            
+            asc.ChangeAnimationState("Walking");
+            if(offset.x < 0){
+                spriteRenderer.flipX = true;
+            }else{
+                spriteRenderer.flipX = false;
+            }
+        }else{
+            Stop();
+        //asc.ChangeAnimationState("Idle"); 
+        }
+    }
+
+    public void Stop(){
+        //return;
+        if(platformingCreature){
+            rb.velocity = new Vector2(0,rb.velocity.y);
+        }else{
+            rb.velocity = Vector3.zero;
+        }
+        asc.ChangeAnimationState("Idle");
+        
         
     }
 
-    void FixedUpdate()
-    {
-        float moveInput = Input.GetAxisRaw("Horizontal");
-        if(moveInput == 0){
-            anim.SetBool("CharMove",false);
-        }
-        else{
-            anim.SetBool("CharMove",true);
-        }
-        rb.MovePosition(transform.position + new Vector3(Input.GetAxisRaw("Horizontal"),Input.GetAxisRaw("Vertical")) * Time.fixedDeltaTime * Speed);
+    public void MoveToward(Vector3 position){
+        Move(position - transform.position);
+    }
 
-        if(Keyboard.current.aKey.wasPressedThisFrame){
-            transform.Rotate(0, 180, 0);
+    public void Jump(){
+        if(!platformingCreature){
+            return;
         }
+        rb.velocity = new Vector2(rb.velocity.x,jumpVel);
+
     }
 }

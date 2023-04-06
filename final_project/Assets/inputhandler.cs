@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class inputhandler : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
+    public character main;
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+        main.Move(new Vector3(Input.GetAxisRaw("Horizontal"),Input.GetAxisRaw("Vertical"),0));
     }
 }
