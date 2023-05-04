@@ -104,7 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaf46094fc754bc4aacf6e446abc59e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 2.5
   asc: {fileID: 9168945815887112908}
   platformingCreature: 0
   jumpVel: 5
@@ -215,7 +215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e924906b9242f8478656493fc881cbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Mycharacter: {fileID: 0}
+  Mycharacter: {fileID: 9168945815887112912}
   targetCharacter: {fileID: 0}
 --- !u!114 &-2420582740187091297
 MonoBehaviour:
@@ -229,3 +229,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3481a38242f7ff4448b3cb7ae0f60751, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  shootingRate: 1
+  projectilePrefab: {fileID: 4085444088923003282, guid: 51c7580a8f8b1f242a19c7c23ff8bf18, type: 3}

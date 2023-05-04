@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class character : MonoBehaviour
 {
@@ -8,6 +9,10 @@ public class character : MonoBehaviour
     SpriteRenderer spriteRenderer;
     public float speed = 5f;
     public animationScript asc;
+
+    public Text scoreText;
+
+    public int points = 0;
 
     public bool platformingCreature = false; //when true, change behavior to work like 2D platformer char
 
@@ -64,5 +69,13 @@ public class character : MonoBehaviour
         }
         rb.velocity = new Vector2(rb.velocity.x,jumpVel);
 
+    }
+
+    public void OnTriggerEnter2D(Collider2D other){
+        if(other.tag == "coin"){
+            other.GetComponent<coinScript>().getCoin();
+            points+=10;
+            scoreText.text = "$ "+ points.ToString();
+        }
     }
 }

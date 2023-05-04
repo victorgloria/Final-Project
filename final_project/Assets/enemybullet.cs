@@ -28,7 +28,7 @@ public class enemybullet : MonoBehaviour
         }
 
         if(other.tag == "wall"){
-        Destroy(gameObject);
+        Destroy(this.gameObject);
         }
     }
 }

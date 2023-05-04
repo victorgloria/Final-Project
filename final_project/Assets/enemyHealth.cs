@@ -7,6 +7,8 @@ public class enemyHealth : MonoBehaviour
     public int maxHealth = 100;
     public int currentHealth;
 
+    public GameObject coin;
+
     void Start()
     {
         currentHealth = maxHealth;
@@ -16,7 +18,9 @@ public class enemyHealth : MonoBehaviour
     {
         currentHealth -= amount;
         if (currentHealth <= 0)
-        {
+        {   
+            Vector3 position = transform.position; 
+            Instantiate(coin,position,Quaternion.identity);
             Die();
         }
     }
