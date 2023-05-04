@@ -9,7 +9,8 @@ public class bullet : MonoBehaviour
     private Vector3 mousePos;
     private Camera mainCam;
     private Rigidbody2D rb;
-    public float speed;
+    public float speed = 10;
+    public int damageAmount = 20;
     void Start()
     {
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
@@ -21,13 +22,16 @@ public class bullet : MonoBehaviour
         float rot = Mathf.Atan2(rotation.y,rotation.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0,0,rot);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     void OnTriggerEnter2D(Collider2D other){
+        enemyHealth enemy = other.gameObject.GetComponent<enemyHealth>();
+        if (enemy != null)
+        {
+            // Deal damage to the enemy
+            enemy.Damage(damageAmount);
+            // Destroy the projectile
+            Destroy(gameObject);
+        }
+
         if(other.tag == "wall"){
         Destroy(gameObject);
         }

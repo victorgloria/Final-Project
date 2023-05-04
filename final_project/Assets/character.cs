@@ -38,8 +38,7 @@ public class character : MonoBehaviour
                 spriteRenderer.flipX = false;
             }
         }else{
-            Stop();
-        //asc.ChangeAnimationState("Idle"); 
+            Stop(); 
         }
     }
 
