@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class character : MonoBehaviour
 {
@@ -17,9 +18,17 @@ public class character : MonoBehaviour
     public bool platformingCreature = false; //when true, change behavior to work like 2D platformer char
 
     public float jumpVel = 5;
+
+    
+    public bool randomizeAttributes = false;
+    public bool randomizeSeed = false;
+    public int seed = 123;
+
+    public UnityEvent myevent;
     void Start(){
         spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
+        myevent.AddListener(pointEvent);
     }
 
 
@@ -70,12 +79,32 @@ public class character : MonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x,jumpVel);
 
     }
-
+    private bullet b;
     public void OnTriggerEnter2D(Collider2D other){
         if(other.tag == "coin"){
             other.GetComponent<coinScript>().getCoin();
             points+=10;
             scoreText.text = "$ "+ points.ToString();
         }
+
+        if(other.tag == "buy"){
+
+
+            if(points > 9){
+                points-=10;
+                scoreText.text = "$ "+ points.ToString();
+                seed = Random.Range(int.MinValue,int.MaxValue);
+                Random.InitState(seed);
+                GameObject Bullet = GameObject.Find("Bullet");
+                b = Bullet.GetComponent<bullet>();
+                b.speed = Random.Range(5,50);
+                b.damageAmount = Random.Range(10,100);
+                b.color = new Color(Random.Range(0f,1f),Random.Range(0f,1f),Random.Range(0f,1f));
+            }
+        }
+    }
+
+    public void pointEvent(){
+        
     }
 }

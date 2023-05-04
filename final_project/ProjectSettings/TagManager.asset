@@ -6,6 +6,9 @@ TagManager:
   tags:
   - wall
   - coin
+  - buy
+  - bullet
+  - exit
   layers:
   - Default
   - TransparentFX

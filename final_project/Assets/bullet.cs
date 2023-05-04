@@ -11,6 +11,8 @@ public class bullet : MonoBehaviour
     private Rigidbody2D rb;
     public float speed = 10;
     public int damageAmount = 20;
+
+
     void Start()
     {
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
@@ -21,6 +23,8 @@ public class bullet : MonoBehaviour
         rb.velocity = new Vector2(direction.x,direction.y).normalized * speed;
         float rot = Mathf.Atan2(rotation.y,rotation.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0,0,rot);
+        GetComponent<SpriteRenderer>().color = new Color(Random.Range(0f,1f),Random.Range(0f,1f),Random.Range(0f,1f));
+        
     }
     void OnTriggerEnter2D(Collider2D other){
         enemyHealth enemy = other.gameObject.GetComponent<enemyHealth>();
