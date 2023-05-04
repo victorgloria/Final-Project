@@ -99,7 +99,6 @@ public class character : MonoBehaviour
                 b = Bullet.GetComponent<bullet>();
                 b.speed = Random.Range(5,50);
                 b.damageAmount = Random.Range(10,100);
-                b.color = new Color(Random.Range(0f,1f),Random.Range(0f,1f),Random.Range(0f,1f));
             }
         }
     }
