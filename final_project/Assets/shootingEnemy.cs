@@ -28,6 +28,5 @@ public class shootingEnemy : MonoBehaviour
     void Shoot()
     {
         GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-        // Set the projectile's velocity and direction here
     }
 }
